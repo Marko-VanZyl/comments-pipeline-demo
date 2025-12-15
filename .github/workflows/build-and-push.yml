@@ -36,3 +36,8 @@ jobs:
 
       - name: Push Docker image
         run: docker push ghcr.io/${{ env.OWNER_LC }}/comments-pipeline-demo:latest
+
+      - name: Trigger Render deploy
+        env: 
+            RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -X POST "$RENDER_DEPLOY_HOOK"
